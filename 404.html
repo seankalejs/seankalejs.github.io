@@ -1,37 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 — страница не найдена · Иван Кузнецов</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0C0B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Пути от корня, а не относительные: GitHub Pages отдаёт эту страницу
+     на любой несуществующий адрес, включая вложенные вроде /blog/foo/.
+     С относительными путями стили и ссылки на такой глубине ломаются. -->
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+/* Стили только этой страницы — в общий styles.css они не нужны. */
+/* Отступ сверху обязателен: шапка зафиксирована, а без него при
+   вертикальном центрировании надзаголовок уезжает под неё. */
+/* Задача — уместиться в один экран без прокрутки: скроллить страницу
+   ошибки человеку незачем. Отсюда фоновая цифра, сжатый ритм и отступ
+   сверху ровно под зафиксированную шапку. */
+.e404{
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:center;overflow:hidden;position:relative;
+  padding-top:clamp(80px,11vh,116px);padding-bottom:clamp(36px,5vw,64px);
+}
+.e404-in{position:relative;z-index:1;max-width:min(100%,640px)}
 
-	<title>404 Error Page</title>
+/* Луч прожектора, который «ищет» пропавшую страницу. Тот же приём, что
+   и свечение на первом экране, только медленно ездит поперёк зала. */
+.beam{
+  position:absolute;top:50%;left:50%;width:min(760px,150vw);height:min(760px,150vw);
+  margin-top:calc(min(760px,150vw) / -2);margin-left:calc(min(760px,150vw) / -2);
+  background:radial-gradient(circle,rgba(51,204,62,.20),transparent 62%);
+  filter:blur(30px);pointer-events:none;z-index:0;
+  animation:sweep 9s cubic-bezier(.45,0,.55,1) infinite alternate;
+}
+@keyframes sweep{from{transform:translate(-46%,-18%)}to{transform:translate(46%,18%)}}
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+/* Цифра ушла из потока в фон: в потоке она съедала пол-экрана и страница
+   переставала помещаться целиком. Позади текста она работает лучше —
+   не мешает читать и держит масштаб. */
+.e404-num{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  right:-.06em;top:50%;transform:translateY(-50%);
+  font-family:var(--ff-display);font-weight:800;line-height:.8;letter-spacing:-.05em;
+  font-size:clamp(150px,29vw,400px);color:transparent;
+  -webkit-text-stroke:2px var(--line);
+}
+/* без поддержки обводки прозрачный текст стал бы невидимым — заливаем цветом */
+@supports not (-webkit-text-stroke:2px currentColor){
+  .e404-num{color:var(--line)}
+}
+/* На узком экране цифра оказывается прямо под текстом, поэтому там она
+   бледнее — иначе спорит с абзацем. */
+@media (max-width:760px){
+  .e404-num{-webkit-text-stroke-color:rgba(237,239,234,.06);top:34%}
+  @supports not (-webkit-text-stroke:2px currentColor){
+    .e404-num{color:rgba(237,239,234,.06)}
+  }
+}
+.e404 h1{font-size:clamp(30px,4.8vw,56px);max-width:15ch}
+/* зелёный акцент в заголовке: в styles.css такое правило есть, но оно
+   привязано к первому экрану главной страницы */
+.e404 h1 em{font-style:normal;color:var(--acc)}
+.e404 p{color:var(--ink-2);margin-top:18px;max-width:46ch;font-size:clamp(15px,.4vw + 14px,17px)}
+.e404-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,3vw,32px)}
 
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+/* styles.css на мобильной ширине резервирует у body 78 px под нижнюю
+   панель контактов. Здесь этой панели нет, и запас превращался в лишнюю
+   прокрутку ровно на её высоту. */
+@media (max-width:860px){
+  body{padding-bottom:0}
+}
 
-	
-	<link rel="preload" href='/css/style404.css' as="style" onload="this.onload=null;this.rel='stylesheet'">
-		<noscript><link rel="stylesheet" href='/css/style404.css'></noscript>
-
+/* Кому анимации мешают — тому неподвижный луч, а не дёргающийся. */
+@media (prefers-reduced-motion:reduce){
+  .beam{animation:none;transform:translate(-10%,0)}
+}
+</style>
 </head>
-
 <body>
 
-	<div class="vertical-center">
-		<div class="container">
-			<div id="notfound" class="text-center ">
-				<h1>😮</h1>
-				<h2>Oops! Page Was Not Found</h2>
-				<p>Looks like the page you are looking for does not exist 🔍 </p>
-				<a href="/#about">Back to the homepage</a>
-			</div>
-		</div>
-	</div>
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="brand" href="/" data-i18n data-ru="Иван Кузнецов<span>.</span>" data-en="Ivan Kuznetsov<span>.</span>">Иван Кузнецов<span>.</span></a>
+    <div class="top-sp"></div>
+    <div class="lang" role="group" aria-label="Язык / Language">
+      <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
 
+<main class="e404">
+  <div class="beam" aria-hidden="true"></div>
+  <!-- Цифра позиционируется от .e404, поэтому лежит рядом с лучом,
+       а не внутри текстового блока. -->
+  <div class="e404-num" aria-hidden="true">404</div>
+  <div class="wrap">
+   <div class="e404-in">
+    <div class="eyebrow" data-i18n data-ru="Ошибка 404" data-en="Error 404">Ошибка 404</div>
+    <h1 data-i18n data-ru="Такой страницы <em>нет</em>" data-en="This page <em>doesn't exist</em>">Такой страницы <em>нет</em></h1>
+    <p data-i18n data-ru="Возможно, страница переехала или ссылка устарела. Остальное на месте: кейсы с цифрами, девять лет опыта и четыре способа связи." data-en="The page may have moved, or the link is out of date. Everything else is where it was: cases with numbers, nine years of experience and four ways to get in touch.">Возможно, страница переехала или ссылка устарела. Остальное на месте: кейсы с цифрами, девять лет опыта и четыре способа связи.</p>
+    <div class="e404-cta">
+      <a class="btn btn-solid" href="/" data-i18n data-ru="На главную" data-en="Back to the homepage">На главную</a>
+      <a class="btn btn-ghost" href="/#cases" data-i18n data-ru="Смотреть кейсы" data-en="See the cases">Смотреть кейсы</a>
+    </div>
+   </div>
+  </div>
+</main>
+
+<script>
+/* Своя мини-версия переключателя вместо js/main.js: тот завязан на блоки,
+   которых здесь нет, и упал бы на первой же строке. Ключ в localStorage
+   общий с главной страницей, поэтому выбор языка переносится в обе стороны. */
+(function(){
+  "use strict";
+  var nodes = document.querySelectorAll('[data-i18n]');
+  var btns  = document.querySelectorAll('.lang button');
+
+  function apply(lang){
+    nodes.forEach(function(n){
+      var v = n.getAttribute('data-' + lang);
+      if (v !== null) n.innerHTML = v;
+    });
+    document.documentElement.lang = lang;
+    document.title = lang === 'en'
+      ? '404 — page not found · Ivan Kuznetsov'
+      : '404 — страница не найдена · Иван Кузнецов';
+    btns.forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+    });
+    try { localStorage.setItem('ik-lang', lang); } catch(e){}
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  /* Язык из ссылки важнее сохранённого — так же, как на главной. */
+  var forced = null, saved = null;
+  var m = /[?&]lang=(ru|en)(?:&|$)/.exec(location.search);
+  if (m) forced = m[1];
+  try { saved = localStorage.getItem('ik-lang'); } catch(e){}
+
+  if (forced) apply(forced);
+  else if (saved === 'en') apply('en');
+})();
+</script>
+
+<!-- Метрика стоит и здесь: на 404 попадают по битым ссылкам, и без счётчика
+     эти заходы просто не видны. После замены Hugo-сайта старых адресов
+     будет много — по отчёту станет понятно, что стоит перенаправить. -->
+<script>
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym(84212245, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/84212245" style="position:absolute; left:-9999px;" alt=""></div></noscript>
 </body>
-
 </html>
